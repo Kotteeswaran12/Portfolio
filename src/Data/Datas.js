@@ -1,4 +1,13 @@
 const portfolioData = {
+  navbar:{
+    part1:["Home" , "About" , "Service"],
+    center:{
+      small : "Made by",
+      largeAndBold :"KVJD",
+      logoTxt :"KV"
+    },
+    part2:["Resume" , "Project" , "Contact"]
+  },
   hero: {
     name: "Kotteeswaran V",
     title: "Aspiring Java Full-Stack Developer",
