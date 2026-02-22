@@ -1,12 +1,13 @@
-import  { useRef, useState } from 'react'
+import  { useEffect, useRef, useState } from 'react'
 import portfolioData from '../Data/Datas'
 import './Nav.css'
 import gsap from 'gsap'
 import { CiMenuBurger } from "react-icons/ci";
+import { IoClose } from "react-icons/io5";
 
 const Nav = () => {
 
-
+    const menuBtnRef = useRef();
     const logo = useRef();
     const { navbar } = portfolioData;
     const { part1, center, part2 } = navbar
@@ -16,12 +17,27 @@ const Nav = () => {
 
     const[isMobile , setisMobile] = useState(innerWidth < 1000);
 
+    const[sideBar , setSideBar] = useState(false);
+
    
 
     function handelActive(e) {
         setActive(e)
     }
 
+    useEffect(()=>{
+        if(sideBar && menuBtnRef.current){
+            gsap.to(menuBtnRef.current , {
+                x:-20 , opacity:0 , ease:'expo.inOut'
+            })
+        }
+
+      const  handelMobileSize=()=>{
+            setisMobile(window.innerWidth<1000)
+        }
+
+        window.addEventListener('resize',handelMobileSize)
+    },[sideBar])
 
     return (
         <div className={`${isMobile? 'mobileNav' : "NavMain"}`} >
@@ -93,8 +109,17 @@ const Nav = () => {
 
 
            {
-            isMobile && (
-                <CiMenuBurger />
+            isMobile &&  !sideBar &&(
+                
+                    <CiMenuBurger size={20} onClick={()=>{setSideBar(true) }}  ref={menuBtnRef}/>
+                
+            )
+           }
+            {
+            isMobile &&  sideBar &&(
+                
+                    <IoClose size={25} onClick={()=>{setSideBar(false) }}  />
+                
             )
            }
         </div>
