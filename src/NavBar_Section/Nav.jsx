@@ -2,6 +2,7 @@ import  { useRef, useState } from 'react'
 import portfolioData from '../Data/Datas'
 import './Nav.css'
 import gsap from 'gsap'
+import { CiMenuBurger } from "react-icons/ci";
 
 const Nav = () => {
 
@@ -13,14 +14,19 @@ const Nav = () => {
     const [visibleText, setVisibleText] = useState(false);
     const [Active, setActive] = useState("Home");
 
+    const[isMobile , setisMobile] = useState(innerWidth < 1000);
+
+   
+
     function handelActive(e) {
         setActive(e)
     }
 
 
     return (
-        <div className='NavMain'>
-            <div className="part1">
+        <div className={`${isMobile? 'mobileNav' : "NavMain"}`} >
+           {
+            !isMobile &&( <div className="part1">
                 <ul>
                     {
                         part1.map((el, i) => {
@@ -34,37 +40,41 @@ const Nav = () => {
                         })
                     }
                 </ul>
-            </div>
+            </div>)
+           }
 
             <div className="center" onMouseEnter={() => {
                 setVisibleText(true)
                 gsap.to(logo.current, {
-                    scale: 1.2,
-                    rotate: 360,
-                    x: -10,
-                    duration: 0.8
+                    scale: 1,
+                    // rotate: 360,
+                    x: -5,
+                    duration: 0.8,
+                    ease: "bounce.out"
                 })
             }}
                 onMouseLeave={() => {
                     setVisibleText(false)
                     gsap.to(logo.current, {
                         scale: 1,
-                        rotate: -360,
+                        // rotate: -360,
                         x: 0,
-                        duration: 0.8
+                        duration: 0.8,
+                        ease: "elastic.out(1,0.3)"
                     })
                 }}>
                 <div className="logoTxt" ref={logo} >{logoTxt}</div>
                 <div className="texts">
                     {visibleText && <h5>{small}</h5>}
-                    {!visibleText && <h2>{largeAndBold}</h2>}
-                    {visibleText && <h2>Kotteeswaran v</h2>}
+                    {!visibleText && <h3>{largeAndBold}</h3>}
+                    {visibleText && <h3>Kotteeswaran v</h3>}
                 </div>
             </div>
 
 
 
-            <div className="part2">
+           {
+            !isMobile && ( <div className="part2">
                 <ul>
                     {
                         part2.map((el, i) => {
@@ -78,7 +88,15 @@ const Nav = () => {
                         })
                     }
                 </ul>
-            </div>
+            </div>)
+           }
+
+
+           {
+            isMobile && (
+                <CiMenuBurger />
+            )
+           }
         </div>
     )
 }
