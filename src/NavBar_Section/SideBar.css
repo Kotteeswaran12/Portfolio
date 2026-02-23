@@ -1,0 +1,37 @@
+.sidebarMain {
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.461);
+    font-family: "Noto Sans", sans-serif;
+    position: absolute;
+    top: 0%;
+    width: 100vw;
+    backdrop-filter: blur(10px);
+    color: white;
+}
+
+.sidebarMain>.Actions>ul {
+    display: flex;
+    padding: 10px 30px;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-around;
+    text-align: end;
+    list-style: none;
+    /* background-color: red; */
+    height: 60vh;
+}
+
+.sidebarMain>.Actions>ul>li {
+    border-bottom: 1px solid #FD853A;
+    width: 100%;
+    text-align: start;
+    padding-bottom: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all ease-in-out 500ms;
+}
+
+.sidebarMain>.Actions>ul>li:hover{
+    border-color: black;
+    scale: 1.05;
+}
